@@ -85,12 +85,13 @@ const App: React.FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputKey.length < 4) {
+    const cleanKey = inputKey.trim(); // Trim whitespace
+    if (cleanKey.length < 4) {
       setError("Key minimal 4 karakter.");
       return;
     }
-    localStorage.setItem('vel_access_key', inputKey);
-    setUserKey(inputKey);
+    localStorage.setItem('vel_access_key', cleanKey);
+    setUserKey(cleanKey);
     setError(null);
   };
 
