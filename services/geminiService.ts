@@ -802,7 +802,7 @@ export const analyzeStock = async (
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-exp", // CHANGED: More stable experimental version
+      model: "gemini-1.5-flash", // Reverting to stable
       contents: userPrompt,
       config: {
         systemInstruction: systemPrompt,
