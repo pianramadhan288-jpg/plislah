@@ -1,0 +1,5 @@
+{
+  "name": "lizer",
+  "description": "Platform analisa saham IDX berbasis AI dengan mode Scalping, Swing, dan Investasi. Menggunakan data real-time bandarmology dan fundamental untuk memberikan skor, trend, serta level trading presisi.",
+  "requestFramePermissions": []
+}
