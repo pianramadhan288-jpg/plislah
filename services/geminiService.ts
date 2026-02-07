@@ -802,12 +802,12 @@ export const analyzeStock = async (
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash", // Updated to recommended model
+      model: "gemini-2.0-flash-exp", // CHANGED: More stable experimental version
       contents: userPrompt,
       config: {
         systemInstruction: systemPrompt,
-        temperature: 0.1, // Slight temp for persona flavor
-        thinkingConfig: { thinkingBudget: 0 },
+        temperature: 0.1, 
+        // thinkingConfig removed to prevent errors on models that don't support it yet
         responseMimeType: "application/json",
         responseSchema: {
           type: Type.OBJECT,
@@ -829,9 +829,11 @@ export const analyzeStock = async (
 
     const result = JSON.parse(response.text || '{}');
     return result as AnalysisResult;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini Analysis Error:", error);
-    throw new Error(`Gagal melakukan analisa ${mode}. Periksa API Key atau Kuota Anda.`);
+    // Display the actual error message from API
+    const errorMessage = error.message || error.toString();
+    throw new Error(`Gagal: ${errorMessage}`);
   }
 };
 
@@ -856,8 +858,8 @@ export const analyzeAllModes = async (
       [AIMode.SWING]: swing,
       [AIMode.INVESTASI]: investasi
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Multi-mode Analysis Error:", error);
-    throw new Error("Gagal menjalankan Quantum Mode (Analisa Gabungan).");
+    throw new Error(`Gagal Quantum Mode: ${error.message}`);
   }
 };
